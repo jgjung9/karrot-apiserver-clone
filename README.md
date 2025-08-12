@@ -31,10 +31,10 @@
 - **[Consumer Server](https://github.com/jgjung9/karrot-consumerserver-clone)**
     - Redis Stream의 메시지를 **consume** 하여 MySQL에 영속화합니다.
     - 향후 Kafka 등으로 대체하거나 확장 가능한 구조로 설계되어 있습니다.
-- 
-  - **Push Server**
-    - 유저에게 푸시 메시지를 전달을 담당하는 서버
-    - FCM, APNs를 이용하여 유저 디바이스에 푸시 메시지 전달
+
+- **Push Server**
+  - 유저에게 푸시 메시지를 전달을 담당하는 서버
+  - FCM, APNs를 이용하여 유저 디바이스에 푸시 메시지 전달
 
 - **Redis Stream**  
   메시지 큐 역할로 사용되며, Chat Server와 Consumer Server 간의 **비동기 처리**를 위한 핵심 컴포넌트입니다.
