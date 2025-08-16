@@ -22,24 +22,24 @@ public class ChatController {
     }
 
     @PostMapping("make/group")
-    public ApiResponse<ChatDto> makeGroupChat(MakeGroupChatRequest request) {
+    public ApiResponse<ChatDto> makeGroupChat(@RequestBody MakeGroupChatRequest request) {
         return ApiUtil.response(chatService.makeGroupChat(request.getUserId(), request.getTitle()));
     }
 
     @PostMapping("make/direct")
-    public ApiResponse<ChatDto> makeDirectChat(MakeDirectChatRequest request) {
+    public ApiResponse<ChatDto> makeDirectChat(@RequestBody MakeDirectChatRequest request) {
         return ApiUtil.response(chatService.makeDirectChat(request.getFromUserId(), request.getToUserId()));
 
     }
 
     @PostMapping("enter")
-    public ApiResponse<ChatDto> enterGroupChat(EnterGroupChatRequest request) {
+    public ApiResponse<ChatDto> enterGroupChat(@RequestBody EnterGroupChatRequest request) {
        return ApiUtil.response(chatService.enterGroupChat(request.getUserId(), request.getChatId()));
 
     }
 
     @PostMapping("leave")
-    public ApiResponse<ChatDto> leaveGroupChat(LeaveGroupChatRequest request) {
+    public ApiResponse<ChatDto> leaveGroupChat(@RequestBody LeaveGroupChatRequest request) {
        return ApiUtil.response(chatService.leaveGroupChat(request.getUserId(), request.getChatId()));
 
     }
