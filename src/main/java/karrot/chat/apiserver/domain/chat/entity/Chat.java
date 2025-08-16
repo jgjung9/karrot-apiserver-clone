@@ -11,10 +11,10 @@ import java.util.List;
 
 @Entity
 @Getter
-@ToString
 public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "chat_id")
     private Long id;
 
     @Nullable
@@ -59,5 +59,9 @@ public class Chat {
 
     public void changeThumbnail(Long thumbnailId) {
         this.thumbnailId = thumbnailId;
+    }
+
+    public void addUserChat(UserChat userChat) {
+        this.userChats.add(userChat);
     }
 }

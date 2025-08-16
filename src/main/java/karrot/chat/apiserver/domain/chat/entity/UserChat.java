@@ -28,7 +28,6 @@ public class UserChat {
 
     private Boolean mute;
 
-    @Column(name = "display_idx")
     private String displayIdx;
 
     public static UserChat create(Chat chat, Long userId, Boolean mute, String displayIdx) {
@@ -37,7 +36,8 @@ public class UserChat {
         userChat.userId = userId;
         userChat.mute = mute;
         userChat.displayIdx = displayIdx;
-        chat.getUserChats().add(userChat);
+        chat.addUserChat(userChat);
         return userChat;
     }
+
 }
