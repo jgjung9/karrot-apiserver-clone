@@ -3,8 +3,10 @@ package karrot.chat.apiserver.api;
 import karrot.chat.apiserver.common.ApiResponse;
 import karrot.chat.apiserver.domain.chat.dto.*;
 import karrot.chat.apiserver.domain.chat.service.ChatService;
+import karrot.chat.apiserver.jwt.JwtTokenService;
 import karrot.chat.apiserver.utils.ApiUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,9 +17,11 @@ import java.util.List;
 public class ChatController {
 
     private final ChatService chatService;
+    private final JwtTokenService jwtTokenService;
 
     @GetMapping
-    public ApiResponse<List<ChatDto>> chatList(Long userId) {
+    public ApiResponse<List<ChatDto>> chatList(Authentication authentication) {
+        Long userId = jwtTokenService.getUserId(authentication);
         return ApiUtil.response(chatService.getChatsByUserId(userId));
     }
 
@@ -45,7 +49,8 @@ public class ChatController {
     }
 
     @GetMapping("{chatId}/messages")
-    public ApiResponse<List<MessageDto>> getAllMessages(Long userId, @PathVariable("chatId") Long chatId) {
+    public ApiResponse<List<MessageDto>> getAllMessages(@PathVariable("chatId") Long chatId, Authentication authentication) {
+        Long userId = jwtTokenService.getUserId(authentication);
        return ApiUtil.response(chatService.getMessagesByChatId(userId, chatId));
     }
 }
