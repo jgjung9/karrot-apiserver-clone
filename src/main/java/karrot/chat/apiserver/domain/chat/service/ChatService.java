@@ -65,7 +65,7 @@ public class ChatService {
         return Result.success(data);
     }
 
-    @Transactional
+    @Transactional("chatTransactionManager")
     public Result<ChatDto> makeGroupChat(Long userId, String title) {
         log.debug("makeGroupChat userId={}, title={}", userId, title);
 
@@ -78,7 +78,7 @@ public class ChatService {
                 .build());
     }
 
-    @Transactional
+    @Transactional("chatTransactionManager")
     public Result<ChatDto> makeDirectChat(Long fromUserId, Long toUserId) {
         log.debug("makeDirectChat fromUserId={}, toUserId={}", fromUserId, toUserId);
 
@@ -108,7 +108,7 @@ public class ChatService {
                 .build());
     }
 
-    @Transactional
+    @Transactional("chatTransactionManager")
     public Result<ChatDto> enterGroupChat(Long userId, Long chatId) {
         log.debug("enterGroupChat chatId={}, userId={}", chatId, userId);
 
@@ -132,7 +132,7 @@ public class ChatService {
                 .build());
     }
 
-    @Transactional
+    @Transactional("chatTransactionManager")
     public Result<ChatDto> leaveGroupChat(Long userId, Long chatId) {
         log.debug("leaveGroupChat chatId={}, userId={}", chatId, userId);
 
