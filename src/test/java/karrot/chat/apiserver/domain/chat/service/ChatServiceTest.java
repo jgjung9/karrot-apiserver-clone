@@ -157,14 +157,21 @@ class ChatServiceTest {
     @DisplayName("속해 있지 않은 채팅방에서 나갈 수 없다")
     void shouldNotLeaveIfNotMember() throws Exception {
         Result<ChatDto> result = chatService.leaveGroupChat(USER_ID_4, GROUP_CHAT_ID);
-        assertThat(ErrorCode.ofCode(result.getErrorCode())).isEqualTo(ErrorCode.CHAT_NOT_GROUP_MEMBER);
+        assertThat(ErrorCode.ofCode(result.getErrorCode())).isEqualTo(ErrorCode.CHAT_NOT_MEMBER);
     }
 
     @Test
     @DisplayName("메시지 목록 가져오기")
     void getAllMessagesByChatId() throws Exception {
-        Result<List<MessageDto>> result = chatService.getMessagesByChatId(GROUP_CHAT_ID);
+        Result<List<MessageDto>> result = chatService.getMessagesByChatId(USER_ID_1, GROUP_CHAT_ID);
         assertThat(result.getData().size()).isEqualTo(3);
         result.getData().stream().forEach(m -> System.out.println(m));
+    }
+
+    @Test
+    @DisplayName("자신이 속해 있지 않은 채팅방의 메시지는 가져올 수 없다")
+    void shouldNotGetMessagesIfNotMember() throws Exception {
+        Result<List<MessageDto>> result = chatService.getMessagesByChatId(USER_ID_4, GROUP_CHAT_ID);
+        assertThat(ErrorCode.ofCode(result.getErrorCode())).isEqualTo(ErrorCode.CHAT_NOT_MEMBER);
     }
 }
