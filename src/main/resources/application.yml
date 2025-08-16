@@ -1,19 +1,20 @@
 spring:
   datasource:
     account:
-      url: jdbc:h2:mem:account
-      username: sa
-      password:
+      url: jdbc:mysql://localhost:3307/account
+      username: root
+      password: 1234
 
     chat:
-      url: jdbc:h2:mem:chat
-      username: sa
-      password:
+      url: jdbc:mysql://localhost:3307/chatdb
+      username: root
+      password: 1234
+
   jpa:
-    show-sql: true
     hibernate:
       ddl-auto: none
-    properties:
-      hibernate:
-        format_sql: true
 
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: http://localhost:8080
