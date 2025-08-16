@@ -4,7 +4,6 @@ import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Getter
 public enum ErrorCode {
@@ -15,7 +14,7 @@ public enum ErrorCode {
     CHAT_NOT_FOUND("C001", "채팅방이 존재하지 않습니다"),
     CHAT_ALREADY_EXISTS_DIRECT("C002", "이미 개인 채팅방이 존재합니다"),
     CHAT_ALREADY_GROUP_MEMBER("C003", "이미 해당 그룹에 존재합니다."),
-    CHAT_NOT_GROUP_MEMBER("C004", "그룹 채팅방의 멤버가 아닙니다"),
+    CHAT_NOT_MEMBER("C004", "그룹 채팅방의 멤버가 아닙니다"),
     CHAT_TYPE_DIRECT("C005", "개인 채팅방은 나갈 수 없다");
 
     private final String code;

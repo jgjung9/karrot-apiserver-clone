@@ -40,13 +40,19 @@ public class ChatService {
         return Result.success(data);
     }
 
-    public Result<List<MessageDto>> getMessagesByChatId(Long chatId) {
-        log.debug("getMessagesByChatId chatId={}", chatId);
+    public Result<List<MessageDto>> getMessagesByChatId(Long userId, Long chatId) {
+        log.debug("getMessagesByChatId userId={}, chatId={}", userId, chatId);
 
         List<MessageDto> data = new ArrayList<>();
         Optional<Chat> foundChat = chatRepository.findById(chatId);
         if (foundChat.isEmpty()) {
             return Result.failure(ErrorCode.CHAT_NOT_FOUND);
+        }
+
+        boolean isMember = foundChat.get().getUserChats().stream()
+                .anyMatch(userChat -> userChat.getUserId().equals(userId));
+        if (!isMember) {
+            return Result.failure(ErrorCode.CHAT_NOT_MEMBER);
         }
 
         foundChat.get().getMessages().stream()
@@ -141,7 +147,7 @@ public class ChatService {
 
         Optional<UserChat> foundUserChat = userChatRepository.findByChatIdAndUserId(chatId, userId);
         if (foundUserChat.isEmpty()) {
-            return Result.failure(ErrorCode.CHAT_NOT_GROUP_MEMBER);
+            return Result.failure(ErrorCode.CHAT_NOT_MEMBER);
         }
         userChatRepository.delete(foundUserChat.get());
         return Result.success(ChatDto.builder()
