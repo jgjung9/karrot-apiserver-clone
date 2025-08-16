@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    account:
+      url: jdbc:h2:mem:account
+      username: sa
+      password:
+
+    chat:
+      url: jdbc:h2:mem:chat
+      username: sa
+      password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: http://localhost:8080
+
+logging:
+  level:
+    karrot.chat.apiserver: debug
